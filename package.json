@@ -1,0 +1,19 @@
+{
+  "name": "page-object-model-cypress",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "headlessTest": "npx cypress run --spec cypress/e2e/ecommerceTest.cy.js",
+    "headedTest": "npm run headlessTest -- --headed",
+    "dashboardTest": "npm run headlessTest -- --record --key 945a49c0-a282-4923-99e4-c05694a79b01"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^13.7.3",
+    "mocha": "^10.4.0",
+    "mochawesome": "^7.1.3"
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 2,
+    "passes": 2,
+    "pending": 0,
+    "failures": 0,
+    "start": "2024-04-23T19:18:08.275Z",
+    "end": "2024-04-23T19:18:32.808Z",
+    "duration": 24533,
+    "testsRegistered": 2,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "15339366-b643-400b-ab93-8dc6a2edbf68",
+      "title": "",
+      "fullFile": "cypress\\e2e\\ecommerceTest.cy.js",
+      "file": "cypress\\e2e\\ecommerceTest.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "3d0ab52a-0a7e-4aeb-90d8-b862b95dcddf",
+          "title": "Complete Test",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Home Page",
+              "fullTitle": "Complete Test Home Page",
+              "timedOut": null,
+              "duration": 9014,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visitSite();\n//Type Name and Verify Error Message\nhomePageObject.inputName().type(this.data1.name);\nhomePageObject.inputName().clear();\nhomePageObject.inputEmail().click();\nhomePageObject.inputErrorMessage().then(errorMessage => {\n  if (errorMessage.text().includes(\"Name\")) {\n    homePageObject.inputErrorMessage().should(\"be.visible\");\n  }\n});\nhomePageObject.inputName().type(this.data1.name);\n//Type Email and Verify Error Message\nhomePageObject.inputEmail().type(this.data1.email);\nhomePageObject.inputEmail().clear();\nhomePageObject.inputName().click();\nhomePageObject.inputErrorMessage().then(errorMessage => {\n  if (errorMessage.text().includes(\"Email\")) {\n    homePageObject.inputErrorMessage().should(\"be.visible\");\n  }\n});\nhomePageObject.inputEmail().type(this.data1.email);\n//Rest of Inputs\nhomePageObject.inputPassword().type(this.data1.password);\nhomePageObject.checkIceCream().check();\nhomePageObject.selectGender().select(this.data1.gender);\n//Employment Status\nhomePageObject.employmentName().each((employStatus, index) => {\n  if (employStatus.text().includes(this.data1.employmentStatus)) {\n    homePageObject.selectEmployment().eq(index).click();\n  }\n  if (employStatus.text().includes(\"Entrepreneur\")) {\n    homePageObject.selectEmployment().eq(index).should(\"be.disabled\");\n  }\n});\n//Date of Birth\nhomePageObject.selectDate().click().type(this.data1.dateOfBirth);\nhomePageObject.selectDate().should('contain.value', this.data1.dateOfBirth);\n//Verify Name\nhomePageObject.checkName().should('contain.value', this.data1.name);\n//Click Submit\nhomePageObject.clickSubmit().click();\n//Check if Submit was successful\nhomePageObject.successMessage().should('be.visible');",
+              "err": {},
+              "uuid": "ee08bc4d-acb6-44bd-8518-1f7848539336",
+              "parentUUID": "3d0ab52a-0a7e-4aeb-90d8-b862b95dcddf",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Store Page",
+              "fullTitle": "Complete Test Store Page",
+              "timedOut": null,
+              "duration": 15349,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visitSite();\n//Go to Shop Page\nshopPageObject.clickShopButton().click();\nshopPageObject.verifyRedirect().should('be.visible');\n//Banner Movements\nshopPageObject.moveButtonRight().click();\nshopPageObject.moveBannerRight().click();\n//Add Items to Cart\nthis.data.productName.forEach(individualProductName => {\n  shopPageObject.selectProductNames().each((product, index) => {\n    if (product.text().includes(individualProductName)) {\n      shopPageObject.clickAddToCart().eq(index).click();\n    }\n  });\n});\n//Click Checkout Button\nshopPageObject.clickCheckOutButton().click();\n//Click Remove Button\nshopPageObject.removeProductNames().each((product, index) => {\n  if (product.text().includes(this.data.removeProductName)) {\n    shopPageObject.clickRemoveButton().eq(index).click();\n  }\n});\n//Reduce Quantity of items in Checkout\nlet amountProduct1 = 0;\nlet amountProduct2 = 0;\nlet totalAmount = 0;\nshopPageObject.selectProductCheckout().each((product, index) => {\n  if (product.text().includes(this.data.removeQuantityProductName)) {\n    shopPageObject.selectProductQuantityCheckout().eq(index).clear();\n    shopPageObject.selectProductQuantityCheckout().eq(index).type(\"2\");\n    //Get Product Amount\n    shopPageObject.getProductAmountCheckout().eq(index).find('td').eq(3).find('strong').invoke('text').then(productAmount => {\n      amountProduct1 = Number(productAmount.split(\" \")[1].trim());\n    });\n  }\n});\n//Add Quantity to items in Checkout\nshopPageObject.selectProductCheckout().each((product, index) => {\n  if (product.text().includes(this.data.addQuantityProductName)) {\n    shopPageObject.selectProductQuantityCheckout().eq(index).clear();\n    shopPageObject.selectProductQuantityCheckout().eq(index).type(\"2\");\n    //Get Product Amount\n    shopPageObject.getProductAmountCheckout().eq(index).find('td').eq(3).find('strong').invoke('text').then(productAmount => {\n      amountProduct2 = Number(productAmount.split(\" \")[1].trim());\n    });\n  }\n}).then(() => {\n  //Sum of Product Amounts and Validate then Click Checkout\n  totalAmount = amountProduct1 + amountProduct2;\n  shopPageObject.getTotalProductAmountCheckout().should('contain', totalAmount);\n  shopPageObject.clickCheckout().click();\n  //Select Country in Checkout and Click Terms and Conditions\n  shopPageObject.selectCountryCheckout().click();\n  shopPageObject.getTermsandConditionsCheckbox().should('not.be.checked');\n  shopPageObject.getTermsandConditions().click();\n  shopPageObject.closeTermsandConditions().click();\n  shopPageObject.getTermsandConditionsCheckbox().should('be.checked');\n  //Click Purchase\n  shopPageObject.getPurchaseButton().click();\n  //shopPageObject.getPurchaseForm().submit()\n  //Validate Success Message\n  shopPageObject.getSuccessMessage().should('contain.text', \"Success\");\n  // shopPageObject.getSuccessMessage().invoke('text').then((text) => {\n  //     cy.wrap(text).should('contain', \"Success\")\n  // })\n});",
+              "err": {},
+              "uuid": "00f2a572-a9a9-442f-81ba-96f9b1d29e33",
+              "parentUUID": "3d0ab52a-0a7e-4aeb-90d8-b862b95dcddf",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "ee08bc4d-acb6-44bd-8518-1f7848539336",
+            "00f2a572-a9a9-442f-81ba-96f9b1d29e33"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 24363,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": null,
+      "version": "6.2.0"
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "productName": ["iphone X", "Samsung Note 8", "Blackberry", "iphone X", "iphone X", "Samsung Note 8"],
+  "removeProductName": ["Samsung Note 8"],
+  "removeQuantityProductName": ["iphone X"],
+  "addQuantityProductName": ["Blackberry"]
+}
